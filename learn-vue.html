@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h2>简易计算器</h2>
+    <div class="hello" v-cloak>
+               
+        输入：<input v-model:value="num1">
+        <select v-model:value="calculation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input v-model:value="num2">=
+        输出：<input :value="result" @keydown.enter="calc">
+        <button @click="calc">计算</button>
+        <div>{{num1}}</div>
+        <div>{{calculation}}{{num2}}</div>      
+        <div>={{result}}</div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:".hello",
+            data:{ 
+                num1:"",
+                num2:"",
+                calculation:"",
+                result:""
+            },
+            methods:{
+                calc() {
+                    var item=this.calculation;
+                    switch(item){
+                        case'+':this.result=parseFloat((this.num1+this.num2).toPrecision(6));break;
+                        case'-':this.result=parseFloat((this.num1-this.num2).toPrecision(6));break;
+                        case'*':this.result=parseFloat((this.num1*this.num2).toPrecision(6));break;
+                        case'/':this.result=parseFloat((this.num1/this.num2).toPrecision(6));break;
+                        // case'%':this.result=parseInt("this.num1".toPrecision(6))%parseInt("this.num2".toPrecision(6));break; 
+                    }
+                },
+                calc(){
+                    this.result=eval("parseFloat(this.num1)"+this.calculation+"parseFloat(this.num2)");
+                },
+                // calc:function.append{
+                //     '\<div v-if="NaN">{{result}}</div>\
+                //     <div v-else>alert("请输入数字")</div>
+                // \'}
+            },
+        });
+    </script>
+</body>
+</html>
